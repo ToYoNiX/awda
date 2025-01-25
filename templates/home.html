@@ -1,0 +1,117 @@
+{% extends "public.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+<div class="container text-center py-5">
+    <div class="row align-items-center">
+        <div class="col-lg-6 text-start">
+            <h1 class="display-4 fw-bold mb-3">Find Your Loved Ones</h1>
+            <p class="lead text-muted">
+                Whether you're looking for someone or want to help others, our platform is here to make a difference. 
+                Using advanced AI and community support, we make searching for missing persons faster and more effective.
+            </p>
+            <a href="/how-it-works" class="btn btn-primary btn-lg mt-4">How It Works</a>
+            <a href="/register" class="btn btn-outline-secondary btn-lg mt-4 ms-3">Get Started</a>
+        </div>
+        <div class="col-lg-6">
+            <img src="/static/images/Illustration of community support.jpg" alt="Illustration of community support" class="img-fluid rounded shadow">
+        </div>
+    </div>
+</div>
+
+<div class="container text-center my-5">
+    <h2 class="fw-bold mb-4">Why Choose Us?</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">AI-Powered Search</h5>
+                    <p class="card-text">
+                        Leverage cutting-edge AI technology to find the closest matches for missing persons quickly and accurately.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Community Driven</h5>
+                    <p class="card-text">
+                        Our platform connects people who care. Upload and search for missing persons with support from a global community.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Legal Guidance</h5>
+                    <p class="card-text">
+                        Access crucial legal information to ensure you're taking the right steps in difficult situations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2 text-start">
+            <h2 class="fw-bold">Stay Informed, Stay Hopeful</h2>
+            <p class="text-muted">
+                Our dashboard provides a real-time view of found persons and allows you to easily upload information about the ones you're searching for.
+                Use the AI-powered "Find" feature to match uploaded photos to our database.
+            </p>
+            <a href="/dashboard" class="btn btn-primary mt-3">Go to Dashboard</a>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+            <img src="/static/images/dashboard.jpg" alt="Dashboard preview" class="img-fluid rounded shadow">
+        </div>
+    </div>
+</div>
+
+<div class="container text-center my-5">
+    <h2 class="fw-bold mb-4">Get Started in 3 Easy Steps</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 text-start shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">1. Register</h5>
+                    <p class="card-text">
+                        Create an account using your National ID and basic details to get started.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 text-start shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">2. Upload Information</h5>
+                    <p class="card-text">
+                        Add the necessary details about the missing person, including a photo and description.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 text-start shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">3. Search or Get Notified</h5>
+                    <p class="card-text">
+                        Use our AI tool to search for matches or wait to be notified if someone else finds a match.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center my-5">
+    <h2 class="fw-bold mb-4">Have Questions?</h2>
+    <p class="text-muted">
+        Visit our <a href="/legal-and-faq">Legal & FAQ</a> page for more information about required details and legal procedures.
+    </p>
+</div>
+{% endblock %}

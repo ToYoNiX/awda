@@ -25,24 +25,26 @@ def after_request(response):
 
 
 @app.route("/")
-@login_required
 def index():
     """Show portfolio of stocks"""
-    return apology("TODO")
+    return render_template('home.html')
 
 
-@app.route("/buy", methods=["GET", "POST"])
+@app.route("/dashboard", methods=["GET", "POST"])
 @login_required
-def buy():
-    """Buy shares of stock"""
+def dashboard():
+    """Look for the missing one or share about the one you found"""
     return apology("TODO")
 
 
-@app.route("/history")
-@login_required
-def history():
-    """Show history of transactions"""
-    return apology("TODO")
+@app.route('/legal-and-faq')
+def legal_and_faq():
+    return render_template('legal_and_faq.html')
+
+
+@app.route('/how-it-works')
+def how_it_works():
+    return render_template('how_it_works.html')
 
 
 @app.route("/login", methods=["GET", "POST"])
