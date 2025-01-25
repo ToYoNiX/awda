@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV=/home/assem/Documents/Projects/awda/.awda
+VIRTUAL_ENV=/home/assem/Github/awda/.awda
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
