@@ -1,0 +1,65 @@
+{% extends "public.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block main %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Register</h2>
+            <form method="POST" action="/register" enctype="multipart/form-data">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="first_name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="national_id" class="form-label">National ID Number</label>
+                    <input type="text" class="form-control" id="national_id" name="national_id" required maxlength="14" pattern="\d{14}">
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="id_front" class="form-label">National ID (Front)</label>
+                        <input type="file" class="form-control" id="id_front" name="id_front" accept="image/*" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_back" class="form-label">National ID (Back)</label>
+                        <input type="file" class="form-control" id="id_back" name="id_back" accept="image/*" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="birthday" class="form-label">Birthday</label>
+                    <input type="date" class="form-control" id="birthday" name="birthday" required>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea class="form-control" id="address" name="address" rows="2" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="phone_number" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone_number" name="phone_number" required pattern="^\+?\d{10,15}$" placeholder="+201234567890">
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="confirm_password" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+                <p class="text-center mt-3">
+                    Already have an account? <a href="/login">Login here</a>.
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -22,6 +22,13 @@ def after_request(response):
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
+
+
+@app.route('/set-theme', methods=['POST'])
+def set_theme():
+    data = request.get_json()
+    session['theme'] = data.get('theme', 'light')
+    return jsonify({'status': 'success'})
 
 
 @app.route("/")
@@ -47,12 +54,16 @@ def how_it_works():
     return render_template('how_it_works.html')
 
 
+@app.route('/forgot-password')
+def forgot_password():
+    return render_template('forgot_password.html')
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
 
-    # Forget any user_id
-    session.clear()
+    # TODO: IF the user is loged in revert to the dashboard
 
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
@@ -98,7 +109,7 @@ def logout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
-    return apology("TODO")
+    return render_template("register.html")
 
 
 @app.route('/about')
