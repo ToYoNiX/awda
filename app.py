@@ -16,7 +16,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
-# db = SQL("sqlite:///database.db")
+db = SQL("sqlite:///database.db")
 
 @app.after_request
 def after_request(response):
@@ -59,6 +59,11 @@ def how_it_works():
 
 @app.route('/forgot-password')
 def forgot_password():
+    
+    # If the user is loged in redirect to the home
+    if session.get("user_id") is not None:
+        return redirect("/")
+    
     return render_template('forgot_password.html')
 
 
@@ -66,7 +71,9 @@ def forgot_password():
 def login():
     """Log user in"""
 
-    # TODO: IF the user is loged in revert to the dashboard
+    # If the user is loged in redirect to the home
+    if session.get("user_id") is not None:
+        return redirect("/")
 
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
@@ -79,7 +86,9 @@ def login():
             return apology("must provide password", 403)
 
         # Query database for username
-        rows = ...
+        rows = db.execute(
+            "SELECT * FROM users WHERE username = ?", request.form.get("username")
+        )
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(
@@ -112,7 +121,16 @@ def logout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
-    return render_template("register.html")
+
+    # If the user is submiting the form
+    if request.method == "POST":
+        ...
+    else:
+        # If the user is loged in redirect to the home
+        if session.get("user_id") is not None:
+            return redirect("/")
+
+        return render_template("register.html")
 
 
 @app.route('/about')
