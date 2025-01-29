@@ -1,11 +1,12 @@
 import os
+import re
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, login_required
+from helpers import apology, login_required, is_eligible, image_to_text, text_to_image
 
 # Configure application
 app = Flask(__name__)
@@ -84,32 +85,22 @@ def login():
             "birthday": request.form.get("birthday"),
             "password": request.form.get("password")
         }
+        
+        # Check required fields
+        for field in data.keys():
+            if not data[field]:
+                flash(f"{field.replace('_', ' ').title()} is required")
+                return render_template("login.html", values=data)
 
         # Ensure national ID number was submitted
-        if not data["national_id"] or not data["national_id"].isdigit() or len(data["national_id"]) != 14:
-            flash("Must Provide National ID Number")
-            return render_template("login.html", values=data)
-
-        # Ensure username was submitted
-        if not data["username"]:
-            flash("Must Provide Username")
-            return render_template("login.html", values=data)
-
-        # Ensure birthday was submitted
-        if not data["birthday"]:
-            flash("Must Provide Birthday")
-            return render_template("login.html", values=data)
-
-        # Ensure password was submitted
-        if not data["password"]:
-            flash("Must Provide Password")
+        if not data["national_id"].isdigit() or len(data["national_id"]) != 14:
+            flash("Invalid national id")
             return render_template("login.html", values=data)
 
         # Query database for username and national ID number
         rows = db.execute( "SELECT * FROM Users WHERE username = ? AND national_id_number = ? AND birthday = ?", data["username"], data["national_id"], data["birthday"])
 
-        date_str = data["birthday"].split('-')
-        if date_str[0][-2:] + date_str[1].lstrip('0') + date_str[2].lstrip('0') not in data["national_id"]:
+        if not is_eligible(data["national_id"], data["birthday"]):
             flash("Invalid Credentials")
             return render_template("login.html", values=data)
 
@@ -128,6 +119,10 @@ def login():
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
+        # If the user is loged in redirect to the home
+        if session.get("user_id") is not None:
+            return redirect("/")
+
         data = {
             "national_id": "",
             "username": "",
@@ -142,8 +137,12 @@ def login():
 def logout():
     """Log user out"""
 
+    theme = session['theme']
+
     # Forget any user_id
     session.clear()
+    
+    session['theme'] = theme
 
     # Redirect user to login form
     return redirect("/")
@@ -155,13 +154,89 @@ def register():
 
     # If the user is submiting the form
     if request.method == "POST":
-        ...
+        data = {
+            "first_name": request.form.get("first_name"),
+            "last_name": request.form.get("last_name"),
+            "national_id": request.form.get("national_id"),
+            "id_front": request.files.get("id_front"),
+            "id_back": request.files.get("id_back"),
+            "birthday": request.form.get("birthday"),
+            "address": request.form.get("address"),
+            "phone_number": request.form.get("phone_number"),
+            "password": request.form.get("password"),
+            "confirm_password": request.form.get("confirm_password")
+        }
+
+        # Check required fields
+        for field in data.keys():
+            if not data[field]:
+                print(data[field])
+                flash(f"{field.replace('_', ' ').title()} is required")
+                return render_template("register.html", values=data)
+
+        # Validate phone number format
+        if not re.match(r'^\+\d{1,3}-?\d{3,4}-?\d{4}$', data["phone_number"]):
+            flash("Invalid phone number format")
+            return render_template("register.html", values=data)
+
+        # Validate password strength
+        if len(data["password"]) < 8:
+            flash("Password must be at least 8 characters")
+            return render_template("register.html", values=data)
+        
+        if not re.search(r'[A-Z]', data["password"]):
+            flash("Password must contain at least one uppercase letter")
+            return render_template("register.html", values=data)
+        
+        if not re.search(r'[0-9]', data["password"]):
+            flash("Password must contain at least one number")
+            return render_template("register.html", values=data)
+        
+        if not re.search(r'[!@#$%^&*()_+{}|:"<>?~`-]', data["password"]):
+            flash("Password must contain at least one special character")
+            return render_template("register.html", values=data)
+
+        # Check if confirm_password matches password
+        if data["confirm_password"] != data["password"]:
+            flash("Passwords do not match")
+            return render_template("register.html", values=data)
+
+        data["username"] = data["first_name"] + " " + data["last_name"] + " " + data["national_id"]
+        db.execute(
+            "INSERT INTO Users (national_id_number, username, first_name, last_name, birthday, address, phone_number, password_hash, national_id_front, national_id_back, theme) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                data["national_id"],
+                data["username"],
+                data["first_name"],
+                data["last_name"],
+                data["birthday"],
+                data["address"],
+                data["phone_number"],
+                generate_password_hash(data["password"]),
+                image_to_text(data["id_front"]),
+                image_to_text(data["id_back"]),
+                session['theme']
+        )
+
+        return redirect("/login")
     else:
         # If the user is loged in redirect to the home
         if session.get("user_id") is not None:
             return redirect("/")
 
-        return render_template("register.html")
+        data = {
+            "first_name": "",
+            "last_name": "",
+            "national_id": "",
+            "id_front": "",
+            "id_back": "",
+            "birthday": "",
+            "address": "",
+            "phone_number": "",
+            "password": "",
+            "confirm_password": ""
+        }
+
+        return render_template("register.html", values=data)
 
 
 @app.route('/about')

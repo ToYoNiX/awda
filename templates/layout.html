@@ -33,6 +33,10 @@
                     </div>
                     {% if session["user_id"] %}
                         <ul class="navbar-nav ms-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                            {% if session["admin"] %}
+                                <li class="nav-item"><a class="nav-link" href="/admin-panel">Admin Panel</a></li>
+                            {% endif %}
                             <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                         </ul>
                     {% else %}
