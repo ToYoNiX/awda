@@ -12,9 +12,15 @@
                     <label for="national_id" class="form-label">National ID Number</label>
                     <input type="text" class="form-control" id="national_id" name="national_id" required maxlength="14" pattern="\d{14}" value="{{ values['national_id'] }}">
                 </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" id="username" name="username" class="form-control" required value="{{ values['username'] }}">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="first_name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" required value="{{ values['first_name'] }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" required value="{{ values['last_name'] }}">
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="birthday" class="form-label">Birthday</label>

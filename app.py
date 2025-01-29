@@ -81,7 +81,8 @@ def login():
 
         data = {
             "national_id": request.form.get("national_id"),
-            "username": request.form.get("username"),
+            "first_name": request.form.get("first_name"),
+            "last_name": request.form.get("last_name"),
             "birthday": request.form.get("birthday"),
             "password": request.form.get("password")
         }
@@ -98,6 +99,7 @@ def login():
             return render_template("login.html", values=data)
 
         # Query database for username and national ID number
+        data["username"] = data["first_name"].strip().title() + "_" + data["last_name"].strip().title() + "_" + data["national_id"]
         rows = db.execute( "SELECT * FROM Users WHERE username = ? AND national_id_number = ? AND birthday = ?", data["username"], data["national_id"], data["birthday"])
 
         if not is_eligible(data["national_id"], data["birthday"]):
@@ -201,7 +203,7 @@ def register():
             flash("Passwords do not match")
             return render_template("register.html", values=data)
 
-        data["username"] = data["first_name"] + " " + data["last_name"] + " " + data["national_id"]
+        data["username"] = data["first_name"].strip().title() + "_" + data["last_name"].strip().title() + "_" + data["national_id"]
         db.execute(
             "INSERT INTO Users (national_id_number, username, first_name, last_name, birthday, address, phone_number, password_hash, national_id_front, national_id_back, theme) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 data["national_id"],
