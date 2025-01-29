@@ -77,34 +77,65 @@ def login():
 
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
+
+        data = {
+            "national_id": request.form.get("national_id"),
+            "username": request.form.get("username"),
+            "birthday": request.form.get("birthday"),
+            "password": request.form.get("password")
+        }
+
+        # Ensure national ID number was submitted
+        if not data["national_id"] or not data["national_id"].isdigit() or len(data["national_id"]) != 14:
+            flash("Must Provide National ID Number")
+            return render_template("login.html", values=data)
+
         # Ensure username was submitted
-        if not request.form.get("username"):
-            return apology("must provide username", 403)
+        if not data["username"]:
+            flash("Must Provide Username")
+            return render_template("login.html", values=data)
+
+        # Ensure birthday was submitted
+        if not data["birthday"]:
+            flash("Must Provide Birthday")
+            return render_template("login.html", values=data)
 
         # Ensure password was submitted
-        elif not request.form.get("password"):
-            return apology("must provide password", 403)
+        if not data["password"]:
+            flash("Must Provide Password")
+            return render_template("login.html", values=data)
 
-        # Query database for username
-        rows = db.execute(
-            "SELECT * FROM users WHERE username = ?", request.form.get("username")
-        )
+        # Query database for username and national ID number
+        rows = db.execute( "SELECT * FROM Users WHERE username = ? AND national_id_number = ? AND birthday = ?", data["username"], data["national_id"], data["birthday"])
 
-        # Ensure username exists and password is correct
+        date_str = data["birthday"].split('-')
+        if date_str[0][-2:] + date_str[1].lstrip('0') + date_str[2].lstrip('0') not in data["national_id"]:
+            flash("Invalid Credentials")
+            return render_template("login.html", values=data)
+
+        # Ensure username, national ID, and birthday exist and password is correct
         if len(rows) != 1 or not check_password_hash(
-            rows[0]["hash"], request.form.get("password")
+            rows[0]["password_hash"], request.form.get("password")
         ):
-            return apology("invalid username and/or password", 403)
+            flash("Invalid Credentials")
+            return render_template("login.html", values=data)
 
         # Remember which user has logged in
-        session["user_id"] = rows[0]["id"]
+        session["user_id"] = rows[0]["user_id"]
 
         # Redirect user to home page
         return redirect("/")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
-        return render_template("login.html")
+        data = {
+            "national_id": "",
+            "username": "",
+            "birthday": "",
+            "password": ""
+        }
+
+        return render_template("login.html", values=data)
 
 
 @app.route("/logout")
@@ -155,4 +186,5 @@ def about():
             "image_url": "/static/images/toqa.jpg"
         }
     ]
+
     return render_template('about.html', team=team)
