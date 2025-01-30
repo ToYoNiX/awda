@@ -32,6 +32,11 @@ def after_request(response):
 def set_theme():
     data = request.get_json()
     session['theme'] = data.get('theme', 'light')
+    
+    # If the user is loged in redirect to the home
+    if session.get("user_id") is not None:
+        db.execute("UPDATE users SET theme = ? WHERE user_id = ?", session['theme'], session["user_id"])
+        
     return jsonify({'status': 'success'})
 
 
@@ -45,7 +50,8 @@ def index():
 @login_required
 def dashboard():
     """Look for the missing one or share about the one you found"""
-    return apology("TODO")
+    rows = db.execute("SELECT * FROM users WHERE user_id = ?", session["user_id"])
+    return render_template('dashboard.html', values=rows[0])
 
 
 @app.route('/legal-and-faq')
@@ -115,6 +121,7 @@ def login():
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["user_id"]
+        session['theme'] = rows[0]["theme"]
 
         # Redirect user to home page
         return redirect("/")
@@ -181,6 +188,10 @@ def register():
             flash("Invalid national id")
             return render_template("login.html", values=data)
 
+        if not is_eligible(data["national_id"], data["birthday"]):
+            flash("Invalid Credentials")    
+            return render_template("login.html", values=data)
+
         # Validate phone number format
         if not re.match(r'^\+20(10|11|12|15)\d{8}$', data["phone_number"]):
             flash("Invalid phone number format. Must start with +20 followed by 10, 11, 12, or 15 and 8 more digits.")
@@ -208,13 +219,12 @@ def register():
             flash("Passwords do not match")
             return render_template("register.html", values=data)
 
-        data["username"] = data["first_name"].strip().title() + "_" + data["last_name"].strip().title() + "_" + data["national_id"]
-        rows = db.execute( "SELECT * FROM Users WHERE username = ?", data["username"])
-
+        rows = db.execute( "SELECT * FROM Users WHERE national_id = ?", data["national_id"])
         if len(rows) != 0:
             flash("The associated data is linked to a separate account")
             return render_template("register.html", values=data)
 
+        data["username"] = data["first_name"].strip().title() + "_" + data["last_name"].strip().title() + "_" + data["national_id"]
         db.execute(
             "INSERT INTO Users (national_id_number, username, first_name, last_name, birthday, address, phone_number, password_hash, national_id_front, national_id_back, theme) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 data["national_id"],

@@ -14,7 +14,8 @@ def image_to_text(img_file):
 
 def text_to_image(text, output_path):
     """Converts a base64 text string back to an image."""
-    ...
+    image_data = base64.b64decode(text)
+    image = Image.open(io.BytesIO(image_data))
 
 
 def apology(message, code=400):

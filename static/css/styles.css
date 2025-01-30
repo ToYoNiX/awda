@@ -149,6 +149,22 @@ nav .navbar-brand {
     transition: transform 0.3s ease; /* Added transition */
 }
 
+.dashboard-wrapper {
+    max-width: 800px;
+    margin: auto;
+}
+
+.id-image {
+    width: 120px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.dashboard-actions .btn {
+    min-width: 200px;
+}
+
 input:checked + .slider {
     background-color: #2196F3;
 }
