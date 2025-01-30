@@ -1,9 +1,116 @@
-/* Size for brand */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+.faq-wrapper {
+    display: flex;
+    flex-direction: column; 
+    max-width: 1000px;
+    margin: 50px auto;
+    gap: 20px;
+}
+
+.faq-left {
+    flex: 1;
+}
+
+.faq-right {
+    background: #F5F5F5;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #F5F5F5;
+}
+
+body.dark .faq-right {
+    background: #444;
+    border: 1px solid #666;
+}
+
+.faq-container {
+    margin-top: 20px;
+}
+
+.faq-item {
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+}
+
+body.dark .faq-item {
+    border-bottom: 1px solid #666;
+}
+
+.faq-item:last-child {
+    border-bottom: none; 
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    transition: color 0.3s ease-in-out;
+}
+
+body.dark .faq-question {
+    color: #fff;
+}
+
+.faq-icon {
+    width: 30px; 
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px; 
+    font-weight: bold;
+    color: black;
+    transition: all 0.5s ease-in-out; 
+}
+
+body.dark .faq-icon {
+    background-color: #666;
+    color: white;
+}
+
+.faq-question:hover .faq-icon {
+    background-color: #333;
+    color: white;
+}
+
+.faq-answer {
+    display: none;
+    padding-top: 10px;
+    font-size: 16px;
+    color: black;
+    transition: all 0.3s ease-in-out;
+}
+
+body.dark .faq-answer {
+    color: white;
+}
+
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+.faq-item.active .faq-icon {
+    background-color: #333;
+    color: white;
+    transform: rotate(180deg); 
+}
+
 nav .navbar-brand {
     font-size: xx-large;
 }
 
-/* The switch - the box around the slider */
 .switch {
     position: relative;
     display: inline-block;
@@ -11,14 +118,12 @@ nav .navbar-brand {
     height: 34px;
 }
 
-/* Hide default HTML checkbox */
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-/* The slider */
 .slider {
     position: absolute;
     cursor: pointer;
@@ -30,7 +135,6 @@ nav .navbar-brand {
     transition: background-color 0.3s ease; /* Added transition */
 }
 
-/* The knob inside the slider */
 .slider:before {
     position: absolute;
     content: "";
@@ -42,22 +146,18 @@ nav .navbar-brand {
     transition: transform 0.3s ease; /* Added transition */
 }
 
-/* When the switch is checked, change background color */
 input:checked + .slider {
     background-color: #2196F3;
 }
 
-/* Focused state when switch is clicked */
 input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
 }
 
-/* Knob movement when checked */
 input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-/* Rounded sliders */
 .slider.round {
     border-radius: 34px;
 }
@@ -66,34 +166,29 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-/* Flexbox container for switch and label */
 .d-flex {
     display: flex;
     align-items: center;
 }
 
-/* Space between the label and switch */
 .d-flex label {
     font-size: 1.1rem;
     color: #000;
     margin-right: 8px;
 }
 
-/* Light theme styles */
 body.light {
     background-color: #fff;
     color: #000;
     transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
-/* Dark theme styles */
 body.dark {
     background-color: #333;
     color: #fff;
     transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
-/* Light theme label and switch */
 body.light label[for="themeSwitch"],
 body.light .switch {
     color: #000;
@@ -107,7 +202,6 @@ body.light .switch input:focus + .slider {
     box-shadow: 0 0 1px #007bff;
 }
 
-/* Dark theme label and switch */
 body.dark label[for="themeSwitch"],
 body.dark .switch {
     color: #fff;
@@ -121,7 +215,6 @@ body.dark .switch input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
 }
 
-/* Adjusting the slider colors in both themes */
 body.light .slider {
     background-color: #ccc;
 }
@@ -130,13 +223,11 @@ body.dark .slider {
     background-color: #444;
 }
 
-/* Disable transitions for the initial page load */
 body.no-transition,
 body.no-transition * {
     transition: none !important;
 }
 
-/* Navbar customizations */
 .navbar {
     font-family: 'Arial', sans-serif;
     padding: 10px 20px;
@@ -164,12 +255,10 @@ body.no-transition * {
     background-color: #333;
 }
 
-/* For both light and dark themes */
 .navbar-light, .navbar-dark {
     transition: background-color 0.3s ease;
 }
 
-/* Navbar for mobile responsiveness */
 @media (max-width: 768px) {
     .navbar-collapse {
         padding: 10px;
@@ -180,7 +269,6 @@ body.no-transition * {
     }
 }
 
-/* Additional styles for theme-specific text and blocks */
 body.light .text-muted {
     color: #6c757d !important;
 }

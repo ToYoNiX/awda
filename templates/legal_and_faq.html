@@ -3,65 +3,85 @@
 {% block title %}Legal Information & FAQ{% endblock %}
 
 {% block main %}
-<div class="container text-start py-5">
-    <h1 class="mb-4">Legal Information & FAQ</h1>
-    <p>
-        Below, you'll find answers to frequently asked questions about the required information and legal actions to take in the case of a missing person.
-    </p>
 
-    <h2 class="mt-5">Frequently Asked Questions</h2>
-
-    <h3 class="mt-4">What is the required information for the missing person?</h3>
-    <p>To effectively search for a missing person, the following details are essential:</p>
-    <ul>
-        <li><strong>Conscious State:</strong> Identify if the person is conscious, unconscious, or experiencing parallel or blind states.</li>
-        <li><strong>Gender:</strong> Specify if the person is male or female.</li>
-        <li><strong>Age:</strong>
-            <ul>
-                <li><strong>Young:</strong> From birth to 18 years old.</li>
-                <li><strong>Adult:</strong> 18 years and above.</li>
-            </ul>
-        </li>
-        <li><strong>Location:</strong> Provide details about their birthplace or current location.</li>
-        <li><strong>Life Conditions:</strong>
-            <ul>
-                <li>Any personal conflicts or issues they might have faced.</li>
-                <li>Known fears or vulnerabilities.</li>
-            </ul>
-        </li>
-        <li><strong>Governorship:</strong> Identify the person responsible for their care or decisions.</li>
-        <li><strong>Literacy:</strong> Determine if the person can read or write.</li>
-    </ul>
-
-    <h3 class="mt-4">What is the required information for login?</h3>
-    <p>
-        To access the platform securely, users are required to provide the following information:
-    </p>
-    <ul>
-        <li><strong>National ID:</strong> A government-issued ID is required to verify your identity.</li>
-        <li><strong>Standard Login Details:</strong> This includes your email and password for account access.</li>
-    </ul>
-
-    <h3 class="mt-4">What are the legal actions to take after missing someone?</h3>
-    <p>
-        Legal procedures and actions can vary by country. Here's a general guide, with specific details for Egypt:
-    </p>
-    <ul>
-        <li>
-            <strong>In Egypt:</strong> Authorities, such as the police, typically require a waiting period of 48 hours after the individual’s disappearance before initiating a search. 
-            During this time, it’s crucial to:
-            <ul>
-                <li>Search our platform for any potential matches.</li>
-                <li>Check all social media platforms for posts or sightings.</li>
-                <li>Visit nearby hospitals and police stations for any records or sightings.</li>
-            </ul>
-        </li>
-        <li>
-            <strong>After 48 Hours:</strong> Escalate the matter to the police or relevant authorities. Provide them with all available details and proof of the person’s disappearance.
-        </li>
-    </ul>
-    <p>
-        Additionally, always keep hope alive and pray for the person’s safety and well-being.
-    </p>
+<div class="container text-start py-5 faq-wrapper">
+    <script src="/static/js/faq-drawer.js" defer></script>
+    <div class="faq-left">
+        <h1 class="mb-4">Legal Information & FAQ</h1>
+        <p>
+            Below, you'll find answers to frequently asked questions about the required information and legal actions to take in the case of a missing person.
+        </p>
+    </div>
+    <div class="faq-right">
+        <h2 class="mt-5">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item mb-4">
+                <div class="faq-question d-flex justify-content-between align-items-center cursor-pointer">
+                    <span class="fs-4 fw-bold">What is the required information for the missing person?</span>
+                    <div class="faq-icon d-flex justify-content-center align-items-center">
+                        <i class="fa fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="faq-answer pt-3">
+                    <p>To effectively search for a missing person, the following details are essential:</p>
+                    <ul>
+                        <li><strong>Conscious State:</strong> Identify if the person is conscious, unconscious, or experiencing parallel or blind states.</li>
+                        <li><strong>Gender:</strong> Specify if the person is male or female.</li>
+                        <li><strong>Age:</strong> Young (From birth to 18 years old.) / Adult (18+).</li>
+                        <li><strong>Location:</strong> Provide their birthplace or current location.</li>
+                        <li><strong>Life Conditions:</strong>
+                            <ul>
+                                <li>Any personal conflicts or issues they might have faced.</li>
+                                <li>Known fears or vulnerabilities.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Governorship:</strong> Identify the person responsible for their care or decisions.</li>
+                        <li><strong>Literacy:</strong> Determine if the person can read or write.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="faq-item mb-4">
+                <div class="faq-question d-flex justify-content-between align-items-center cursor-pointer">
+                    <span class="fs-4 fw-bold">What is the required information for login?</span>
+                    <div class="faq-icon d-flex justify-content-center align-items-center">
+                        <i class="fa fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="faq-answer pt-3">
+                    <p>To access the platform securely, users are required to provide the following information:</p>
+                    <ul>
+                        <li><strong>National ID:</strong> A government-issued ID is required to verify your identity.</li>
+                        <li><strong>Standard Login Details:</strong> This includes your email and password for account access.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="faq-item mb-4">
+                <div class="faq-question d-flex justify-content-between align-items-center cursor-pointer">
+                    <span class="fs-4 fw-bold">What are the legal actions to take after missing someone?</span>
+                    <div class="faq-icon d-flex justify-content-center align-items-center">
+                        <i class="fa fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="faq-answer pt-3">
+                    <p>Legal procedures and actions can vary by country. Here's a general guide, with specific details for Egypt:</p>
+                    <ul>
+                        <li>
+                            <strong>In Egypt:</strong> Authorities, such as the police, typically require a waiting period of 48 hours after the individual’s disappearance before initiating a search. 
+                            During this time, it’s crucial to:
+                            <ul>
+                                <li>Search our platform for any potential matches.</li>
+                                <li>Check all social media platforms for posts or sightings.</li>
+                                <li>Visit nearby hospitals and police stations for any records or sightings.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>After 48 Hours:</strong> Escalate the matter to the police or relevant authorities. Provide them with all available details and proof of the person’s disappearance.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
