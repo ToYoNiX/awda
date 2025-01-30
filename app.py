@@ -182,8 +182,8 @@ def register():
             return render_template("login.html", values=data)
 
         # Validate phone number format
-        if not re.match(r'^\+\d{1,3}-?\d{3,4}-?\d{4}$', data["phone_number"]):
-            flash("Invalid phone number format")
+        if not re.match(r'^\+20(10|11|12|15)\d{8}$', data["phone_number"]):
+            flash("Invalid phone number format. Must start with +20 followed by 10, 11, 12, or 15 and 8 more digits.")
             return render_template("register.html", values=data)
 
         # Validate password strength
