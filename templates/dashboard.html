@@ -7,8 +7,8 @@
 <div class="container text-start py-5 dashboard-wrapper">
     <h1 class="mb-4">Dashboard</h1>
     <div class="user-info d-flex align-items-center mb-4">
-        <img src="/static/images/national_id_front.jpg" alt="National ID Front" class="id-image me-3">
-        <img src="/static/images/national_id_back.jpg" alt="National ID Back" class="id-image me-3">
+        <img src="{{ values['national_id_front'] }}" alt="National ID Front" class="id-image me-3">
+        <img src="{{ values['national_id_back'] }}" alt="National ID Back" class="id-image me-3">
         <div>
             <h2 class="mb-1">{{ values["first_name"] + " " + values["last_name"] }}</h2>
             <p class="mb-1"><strong>Phone: </strong>{{ values["phone_number"] }}</p>

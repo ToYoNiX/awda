@@ -51,6 +51,8 @@ def index():
 def dashboard():
     """Look for the missing one or share about the one you found"""
     rows = db.execute("SELECT * FROM users WHERE user_id = ?", session["user_id"])
+    rows[0]["national_id_front"] = text_to_image(rows[0]["national_id_front"]).getdata()
+    rows[0]["national_id_back"] = text_to_image(rows[0]["national_id_back"]).getdata()
     return render_template('dashboard.html', values=rows[0])
 
 
@@ -190,7 +192,7 @@ def register():
 
         if not is_eligible(data["national_id"], data["birthday"]):
             flash("Invalid Credentials")    
-            return render_template("login.html", values=data)
+            return render_template("register.html", values=data)
 
         # Validate phone number format
         if not re.match(r'^\+20(10|11|12|15)\d{8}$', data["phone_number"]):
@@ -219,7 +221,8 @@ def register():
             flash("Passwords do not match")
             return render_template("register.html", values=data)
 
-        rows = db.execute( "SELECT * FROM Users WHERE national_id = ?", data["national_id"])
+        print(data["national_id"])
+        rows = db.execute( "SELECT * FROM Users WHERE national_id_number = ?", data["national_id"])
         if len(rows) != 0:
             flash("The associated data is linked to a separate account")
             return render_template("register.html", values=data)
