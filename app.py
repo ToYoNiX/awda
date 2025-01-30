@@ -100,7 +100,7 @@ def login():
 
         # Query database for username and national ID number
         data["username"] = data["first_name"].strip().title() + "_" + data["last_name"].strip().title() + "_" + data["national_id"]
-        rows = db.execute( "SELECT * FROM Users WHERE username = ? AND national_id_number = ? AND birthday = ?", data["username"], data["national_id"], data["birthday"])
+        rows = db.execute( "SELECT * FROM Users WHERE username = ?", data["username"])
 
         if not is_eligible(data["national_id"], data["birthday"]):
             flash("Invalid Credentials")
@@ -176,6 +176,11 @@ def register():
                 flash(f"{field.replace('_', ' ').title()} is required")
                 return render_template("register.html", values=data)
 
+        # Ensure national ID number was submitted
+        if not data["national_id"].isdigit() or len(data["national_id"]) != 14:
+            flash("Invalid national id")
+            return render_template("login.html", values=data)
+
         # Validate phone number format
         if not re.match(r'^\+\d{1,3}-?\d{3,4}-?\d{4}$', data["phone_number"]):
             flash("Invalid phone number format")
@@ -204,6 +209,12 @@ def register():
             return render_template("register.html", values=data)
 
         data["username"] = data["first_name"].strip().title() + "_" + data["last_name"].strip().title() + "_" + data["national_id"]
+        rows = db.execute( "SELECT * FROM Users WHERE username = ?", data["username"])
+
+        if len(rows) != 0:
+            flash("The associated data is linked to a separate account")
+            return render_template("register.html", values=data)
+
         db.execute(
             "INSERT INTO Users (national_id_number, username, first_name, last_name, birthday, address, phone_number, password_hash, national_id_front, national_id_back, theme) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 data["national_id"],

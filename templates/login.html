@@ -30,6 +30,13 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required value="{{ values['password'] }}">
                 </div>
+                <div class="mb-3">
+                    <input type="checkbox" id="showPassword">
+                    <label for="showPassword">Show Password</label>
+                </div>
+                
+                <script src="/static/js/show-password.js" defer></script>
+                
                 <button type="submit" class="btn btn-primary w-100">Login</button>
                 <p class="text-center mt-3">
                     Don't have an account? <a href="/register">Register here</a>.
