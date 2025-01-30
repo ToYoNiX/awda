@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         question.addEventListener("click", () => {
             item.classList.toggle("active");
-            icon.classList.toggle("fa-chevron-down");
             icon.classList.toggle("fa-chevron-up");
         });
     });
