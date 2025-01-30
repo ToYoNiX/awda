@@ -53,18 +53,19 @@
                         <label for="confirm_password" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="confirm_password" name="confirm_password" required value="{{ values['confirm_password'] }}">
                     </div>
-
-                    <div class="mb-3">
-                        <input type="checkbox" id="showPassword">
-                        <label for="showPassword">Show Password</label>
-                    </div>
-                    
+        
                     <script src="/static/js/show-password.js" defer></script>
 
                     <div class="mb-3">
                         <small class="text-muted">Password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character (!@#$%^&*()_+{}|:"<>?~`-).</small>
                     </div>
                 </div>
+
+                <div class="mb-3">
+                    <input type="checkbox" id="showPassword">
+                    <label for="showPassword">Show Password</label>
+                </div>
+
                 <button type="submit" class="btn btn-primary w-100">Register</button>
                 <p class="text-center mt-3">
                     Already have an account? <a href="/login">Login here</a>.
