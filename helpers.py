@@ -13,11 +13,16 @@ def image_to_text(img_file):
 
 
 def text_to_image(text):
-    """Converts a base64 text string back to an image."""
+    """Converts a base64 text string back to an image URL."""
     image_data = base64.b64decode(text)
     image = Image.open(io.BytesIO(image_data))
-    return image
 
+    # Convert image to base64 for HTML embedding
+    buffered = io.BytesIO()
+    image.save(buffered, format="PNG")  # Use PNG or JPEG
+    encoded_image = base64.b64encode(buffered.getvalue()).decode()
+
+    return f"data:image/png;base64,{encoded_image}"
 
 def apology(message, code=400):
     """Render message as an apology to user."""
@@ -46,20 +51,23 @@ def apology(message, code=400):
 
 def is_eligible(national_id, birthdate):
     """
-    Determines if the given birthday relates appropriately to the National ID issue date.
-    
+    Determines if the given birthdate matches the encoded date in the National ID.
+
     Args:
-        national_id_date (str): Date the National ID was issued in YYYY-MM-DD format.
+        national_id (str): 14-digit National ID.
         birthdate (str): Birthday of the individual in YYYY-MM-DD format.
-        
+
     Returns:
-        bool: True if the person is eligible based on their birthday and ID issuance date, False otherwise.
+        bool: True if the birthdate matches the National ID, False otherwise.
     """
+    if len(national_id) != 14 or not national_id.isdigit():
+        return False  # Invalid national ID format
+    
     date_str = birthdate.split('-')
-    if date_str[0][-2:] + date_str[1].lstrip('0') + date_str[2].lstrip('0') in national_id:
-        return True
-    else:
-        return False
+    YYMMDD = date_str[0][-2:] + date_str[1].zfill(2) + date_str[2].zfill(2)
+    
+    # The birthdate is encoded in positions 2-7 (index 1-6) in the national ID
+    return national_id[1:7] == YYMMDD
 
 
 def login_required(f):

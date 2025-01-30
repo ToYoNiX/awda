@@ -51,8 +51,8 @@ def index():
 def dashboard():
     """Look for the missing one or share about the one you found"""
     rows = db.execute("SELECT * FROM users WHERE user_id = ?", session["user_id"])
-    rows[0]["national_id_front"] = text_to_image(rows[0]["national_id_front"]).getdata()
-    rows[0]["national_id_back"] = text_to_image(rows[0]["national_id_back"]).getdata()
+    rows[0]["national_id_front"] = text_to_image(rows[0]["national_id_front"])
+    rows[0]["national_id_back"] = text_to_image(rows[0]["national_id_back"])
     return render_template('dashboard.html', values=rows[0])
 
 
@@ -181,7 +181,6 @@ def register():
         # Check required fields
         for field in data.keys():
             if not data[field]:
-                print(data[field])
                 flash(f"{field.replace('_', ' ').title()} is required")
                 return render_template("register.html", values=data)
 
@@ -191,7 +190,7 @@ def register():
             return render_template("login.html", values=data)
 
         if not is_eligible(data["national_id"], data["birthday"]):
-            flash("Invalid Credentials")    
+            flash("Invalid Credentials")
             return render_template("register.html", values=data)
 
         # Validate phone number format
