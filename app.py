@@ -61,6 +61,12 @@ def legal_and_faq():
     return render_template('legal_and_faq.html')
 
 
+@app.route('/found-people')
+@login_required
+def found_ppl():
+    return render_template('found_ppl.html')
+
+
 @app.route('/how-it-works')
 def how_it_works():
     return render_template('how_it_works.html')

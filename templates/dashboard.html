@@ -15,10 +15,56 @@
             <p><strong>National ID: </strong>{{ values["national_id_number"] }}</p>
         </div>
     </div>
-    <div class="dashboard-actions d-flex flex-wrap gap-3">
-        <button class="btn btn-primary">Search for a Missing Person</button>
-        <button class="btn btn-secondary">Search Yourself</button>
-        <button class="btn btn-success">Search with AI</button>
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="col-md-8 bg-light p-4 rounded shadow-lg">
+            <div class="btn-group w-100 mb-4" role="group">
+                <button id="foundBtn" class="btn btn-dark w-50">Found Someone</button>
+                <button id="lookingBtn" class="btn btn-outline-dark w-50">Looking for Someone</button>
+            </div>
+            <div id="foundSection">
+                <a href="/found-people" class="btn btn-secondary w-100 mb-3">List of Missing People</a>
+                <div class="p-3 bg-white rounded border">
+                    <h2 class="h5">Found Someone?</h2>
+                    <p class="text-muted">Provide details below:</p>
+                    <input type="text" class="form-control mb-2" placeholder="Full Name">
+                    <select class="form-control mb-2">
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                    <input type="number" class="form-control mb-2" placeholder="Age">
+                    <select class="form-control mb-2">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                    <input type="text" class="form-control mb-2" placeholder="Clothing Description">
+                    <input type="text" class="form-control mb-2" placeholder="Location Found">
+                    <input type="datetime-local" class="form-control mb-2">
+                    <textarea class="form-control mb-2" placeholder="Additional Notes"></textarea>
+                    <input type="file" class="form-control mb-3">
+                    <button class="btn btn-dark w-100">Submit</button>
+                </div>
+            </div>
+            <div id="lookingSection" class="d-none">
+                <a href="/found-people" class="btn btn-secondary w-100 mb-3">List of Found People</a>
+                <div class="p-3 bg-white rounded border">
+                    <h2 class="h5">Looking for Someone?</h2>
+                    <p class="text-muted">Provide details below:</p>
+                    <input type="text" class="form-control mb-2" placeholder="Full Name">
+                    <input type="number" class="form-control mb-2" placeholder="Age">
+                    <select class="form-control mb-2">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                    <input type="text" class="form-control mb-2" placeholder="Clothing Description">
+                    <input type="datetime-local" class="form-control mb-2">
+                    <input type="text" class="form-control mb-2" placeholder="Phone Number">
+                    <input type="text" class="form-control mb-2" placeholder="Alternative Contact">
+                    <input type="text" class="form-control mb-2" placeholder="Relationship">
+                    <input type="file" class="form-control mb-3">
+                    <button class="btn btn-dark w-100">Submit</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
